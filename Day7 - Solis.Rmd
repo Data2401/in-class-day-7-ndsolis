@@ -1,0 +1,145 @@
+---
+title: "In Class Lab"
+author: "Dr. Shoemaker"
+date: "DATA 2401"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## In Class Exercises
+
+### Set 1 
+```{R}
+n = 10:49
+length = length(n)
+nplus = n + 1
+print(nplus)
+m = 10:1
+m = seq(10,1)
+n-m
+```
+### Set 2
+```{R}
+
+x_range = seq(-5, 10, by = 0.1)
+sin_wave = sin(x_range)
+wave = plot(x_range, sin_wave, col = 2, type = "l", lwd = 15)
+
+```
+### Set 3 
+```{R}
+first_nums = 40:50
+next_nums = seq(51,60)
+combined = c(first_nums, next_nums)
+combined[7]
+combined[5:8]
+last = length(combined)
+new = combined[c(1:3, 19:21)]
+new = combined[c(1:3, 19:last)]
+## In Class Activity
+```
+
+
+```{r}
+roll_die = function(){
+  die_rolls = seq(1,6)
+roll = sample(die_rolls, 1)
+roll
+}
+roll_die()
+```
+
+```{r}
+dice_sum <- function() {
+  die_rolls = seq(1,6)
+  roll1 = sample(die_rolls, 1)
+  roll1
+  roll2 = sample(die_rolls, 1)
+  roll2
+  total_sum = roll1 + roll2
+  total_sum
+  return(c(roll1, roll2, total_sum))
+}
+dice_sum()
+```
+```{r}
+name1 = "axel"
+name2 = "nicholas"
+dice_game <- function(name1, name2) {
+
+  roll1 <- sample(1:6, 1)
+  roll2 <- sample(1:6, 1)
+  
+  if (roll1 > roll2) {
+    return(name1)
+  } else if (roll2 > roll1) {
+    return(name2)
+  } else {
+    # roll again
+    roll1 <- sample(1:6, 1)
+    roll2 <- sample(1:6, 1)
+    if (roll1 > roll2) {
+      return(name1)
+    } else if (roll2 > roll1) {
+      return(name2)
+    } else {
+      # draw
+      return("draw")
+    }
+  }
+}
+result = dice_game(name1,name2)
+print(result)
+```
+```{r}
+name1 = "axel"
+name2 = "nicholas"
+
+dice_play15 <- function(name1, name2) {
+  roll1 <- sample(1:6, 15, replace = TRUE)
+  roll2 <- sample(1:6, 15, replace = TRUE)
+  # wins
+  wins1 <- sum(roll1 > roll2)
+  wins2 <- sum(roll2 > roll1)
+  #conditions
+  if (wins1 > wins2) {
+    return(name1)
+  } else if (wins2 > wins1) {
+    return(name2)
+  } else {
+    return("draw")
+  }
+}
+result = dice_play15(name1, name2)
+print(result)
+
+```
+```{r}
+name1 = "axel"
+name2 = "nicholas"
+unfair_game <- function(name1, name2) {
+  prob_mod <- c(0.10, 0.15, 0.20, 0.25, 0.30, 0.35)
+  
+  roll1 <- sample(1:6, 15, replace = TRUE, prob = prob_mod)
+  roll2 <- sample(1:6, 15, replace = TRUE)
+  
+  # Count wins for each person. (Ties are not counted.)
+  win1 <- sum(roll1 > roll2)
+  win2 <- sum(roll2 > roll1)
+  
+  if (win1 > win2) {
+    return(name1)
+  } else if (win2 > win1) {
+    return(name2)
+  } else {
+    return("draw")
+  }
+}
+
+results <- replicate(10, unfair_game(name1, name2))
+print(results)
+
+```
+
